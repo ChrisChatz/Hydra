@@ -8,10 +8,12 @@ public class SocketListener  extends Thread{
 
 	private Socket socket;
 	private DataInputStream input;
+	private NetworkController parent;
 	
-	public SocketListener(Socket socket)
+	public SocketListener(Socket socket, NetworkController parent)
 	{	
 		this.socket = socket;
+		this.parent= parent;
 		try {
 			this.input=new DataInputStream(socket.getInputStream());
 		} catch (IOException e) {
@@ -25,12 +27,14 @@ public class SocketListener  extends Thread{
 	{
 		while(true){
 			try{
-				//String message=null;
+				String message;
 				int length= input.readInt();
 				if(length>0){
 					byte[] b=new byte[length];
 					input.readFully(b);
-					System.out.println(new String(b,"UTF-8"));
+					message= new String(b,"UTF-8");
+					String key = socket.getRemoteSocketAddress().toString()+ socket.getPort();
+					parent.getMessageFromSL(message, key);
 				}
 			}catch(IOException e){e.printStackTrace();break;}
 		}
