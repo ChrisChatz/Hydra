@@ -10,9 +10,10 @@ to opoio apla tha stelnei minimata sto master -> worker -> google api gia na par
 
 1)
 paketo network:
+
 Server Socket listener:
 	Constructor:
-		Dexetai ws vasika orismata port kai ena antikeimeno tou network manager (tha eksigithei parakatw)	
+		Dexetai ws vasika orismata port kai ena antikeimeno tou network controller (tha eksigithei parakatw)	
 	Run:
 		Apo ti stigmi pou kanei extend tin klasi thread exoume mia methodo run , stin opoia
 		dexomaste socket connection apo clients kai apothikeuoume ayti ti sundesi se mia domi tou network controller (Hash map)
@@ -21,5 +22,19 @@ Server Socket listener:
 	Close :
 		kleinei to server socket
 
+		
+Point of the class : Dimiourgia mias sundesis socket anoixtis gia olous tous clients.
+		
 Socket listener:
+	
+	Constructor: 
+		Dexetai ws basika orismata ena socket antikeimeno kai ena antikeimeno tou Network controller (opws kai i Server socket listener)
+		kai dimiourgei ena input Datastream
+		
+	Run:
+		Perimenei message apo enan client. Dimiourgei enan pinaka apo bytes me to length tou minimatos wste na to prwothisei argotera
+		se ayti tin morfi. Epeita dimiourgei ena monadiko kai meta stelnei to minima ston Network controller.
+		
+Network Controller:
+	
 	
