@@ -30,9 +30,9 @@ public class NetworkController {
 
 	public void addSocket(Socket s){
 		String key = s.getRemoteSocketAddress().toString()+ s.getPort();
-		socketmap.put(key, s);
+		socketmap.put(key, s);//Add new socket to a HashMap
 		SocketListener sl = new SocketListener(s, this);
-		slmap.put(key,sl);
+		slmap.put(key,sl);//Add a new SocketListener to a HashMap
 		sl.start();
 	}
 	
