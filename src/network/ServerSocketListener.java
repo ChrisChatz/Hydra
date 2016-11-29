@@ -20,8 +20,8 @@ public class ServerSocketListener extends Thread {
 		
 		while(true){
 			try {
-				Socket x=serversocket.accept();
-				parent.addSocket(x);//Here you must handle the new connection
+				Socket x=serversocket.accept();//accept sockets from Clients
+				parent.addSocket(x);//add new socket to Network Controller
 				System.out.println("New connection");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -30,9 +30,9 @@ public class NetworkController {
 
 	public void addSocket(Socket s){
 		String key = s.getRemoteSocketAddress().toString()+ s.getPort();
-		socketmap.put(key, s); // κρατάει το κάθε connection σε ενα map
+		socketmap.put(key, s);
 		SocketListener sl = new SocketListener(s, this);
-		slmap.put(key,sl); // κρατάει τα ενεργα SocketListener (δεν το χρησιμοποιούμαι ακόμα)
+		slmap.put(key,sl); 
 		sl.start();
 	}
 	

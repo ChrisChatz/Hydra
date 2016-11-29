@@ -13,9 +13,9 @@ public class TestClient extends Thread {
 	public void run(){
 		Socket requestSocket = null;
 		try {
-			requestSocket = new Socket("127.0.0.1", 4321);
+			requestSocket = new Socket("127.0.0.1", 4321);//Request socket from Server
 			String message=new String("Hi");
-			DataOutputStream d=new DataOutputStream(requestSocket.getOutputStream());
+			DataOutputStream d=new DataOutputStream(requestSocket.getOutputStream());//Send message to SocketListener
 			d.writeInt(message.getBytes().length);
 			d.write(message.getBytes());
 			d.flush();

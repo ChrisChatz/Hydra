@@ -27,6 +27,7 @@ public class SocketListener  extends Thread{
 	{
 		while(true){
 			try{
+				//Takes message from Clients
 				String message;
 				int length= input.readInt();
 				if(length>0){
@@ -34,7 +35,7 @@ public class SocketListener  extends Thread{
 					input.readFully(b);
 					message= new String(b,"UTF-8");
 					String key = socket.getRemoteSocketAddress().toString()+ socket.getPort();
-					parent.getMessageFromSL(message, key);
+					parent.getMessageFromSL(message, key);//Send the message of Client to the Network Controller
 				}
 			}catch(IOException e){e.printStackTrace();break;}
 		}
