@@ -20,7 +20,6 @@ public class Request {
 		return this.toString();
 	}
 
-
 	public String getQuestion_loc() {
 		return question_loc;
 	}
@@ -36,6 +35,5 @@ public class Request {
 	public void setWorker_id(String worker_id) {
 		this.worker_id = worker_id;
 	}
-	
-	
+		
 }
