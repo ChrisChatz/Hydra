@@ -20,21 +20,6 @@ public class Request {
 		return this.toString();
 	}
 
-	public String getConnection_id() {
-		return connection_id;
-	}
-
-	public void setConnection_id(String connection_id) {
-		this.connection_id = connection_id;
-	}
-
-	public String getAnswer_json() {
-		return answer_json;
-	}
-
-	public void setAnswer_json(String answer_json) {
-		this.answer_json = answer_json;
-	}
 
 	public String getQuestion_loc() {
 		return question_loc;
