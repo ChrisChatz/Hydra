@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class TestWorker extends Thread {
+public class Worker extends Thread {
 	
-	TestWorker(){
+	Worker(){
 		
 	}
 	public void run(){
@@ -29,7 +29,7 @@ public class TestWorker extends Thread {
 		
 	}
 	public static void main(String[] args) {
-		new TestWorker().start();
+		new Worker().start();
 
 	}
 
