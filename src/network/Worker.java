@@ -6,9 +6,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Worker extends Thread {
-
-	HashMap<String, Request> reqtoserve;
-	HashMap<>
 	
 	Worker(){
 		
@@ -37,8 +34,11 @@ public class Worker extends Thread {
 
 	}
 
-	public void serveRequest(request){ // worker serves the request 
-		
+	// worker serves the request 
+	public void serveRequest(Request req){ 
+		//if the worker has to answer add the answer to the request and send its back to the (Application Ctrler)
+
+		//else asks google
 
 
 	}
