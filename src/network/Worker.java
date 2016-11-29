@@ -14,7 +14,7 @@ public class Worker extends Thread {
 		Socket requestSocket = null;
 		try {
 			requestSocket = new Socket("127.0.0.1", 4321);//Request socket from Server
-			String message=new String("Hi");
+			String message=new String("Hi");//This message it will change with an answer to a Client request
 			DataOutputStream d=new DataOutputStream(requestSocket.getOutputStream());//Send message to SocketListener
 			d.writeInt(message.getBytes().length);
 			d.write(message.getBytes());
@@ -30,6 +30,7 @@ public class Worker extends Thread {
 	}
 	public static void main(String[] args) {
 		new Worker().start();
+		
 
 	}
 
