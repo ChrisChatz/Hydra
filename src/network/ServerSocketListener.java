@@ -35,6 +35,7 @@ public class ServerSocketListener extends Thread {
 	public void open() throws IOException
 	{
 		serversocket=new ServerSocket(portnumber);
+		System.out.println("Server:ON");
 	}
 
 	public void close() throws IOException

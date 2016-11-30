@@ -42,7 +42,7 @@ public class NetworkController {
 		System.out.println("Received message "+ message +" from "+slkey);
 	}
 	
-	public void sendRequest(Request req, String key){ // Na fantastw oti ayto to kalei o Application Crtler na stelei to to aitima stous worker kai toympali ?. 
+	public void sendRequest(Request req, String key){ //  
 		try{
 			String request = req.toString();
 			Socket socket = socketmap.get(key);
