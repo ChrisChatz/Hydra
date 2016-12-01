@@ -1,5 +1,5 @@
 package network;
-
+import application.ApplicationController;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -11,8 +11,11 @@ public class NetworkController {
 	ServerSocketListener sslistener;
 	HashMap<String, Socket> socketmap;
 	HashMap<String, SocketListener> slmap;
+	String role;
+	ApplicationController apiC;
 	
-	public NetworkController(int port){
+	public NetworkController(int port , String role){
+		this.role = role;
 		startServerSocketListener(port);
 		socketmap= new HashMap<String, Socket>();
 		slmap = new HashMap<String, SocketListener>();
@@ -37,9 +40,7 @@ public class NetworkController {
 	}
 	
 	public void getMessageFromSL(String message, String slkey){
-		Request req = new Request(message,slkey);
-		System.out.println(req.toString());
-		System.out.println("Received message "+ message +" from "+slkey);
+		apiC.callApp(slkey, message, this.role); // creates the hashmaps of clients and workers
 	}
 	
 	public void sendRequest(Request req, String key){ //  
@@ -57,6 +58,8 @@ public class NetworkController {
 	}
 
 	public static void main(String[] args){
-		NetworkController theman = new NetworkController(4321);
+		NetworkController clientnc = new NetworkController(4321,"client");
+		NetworkController workernc = new NetworkController(4321,"worker");
+
 	}
 }
