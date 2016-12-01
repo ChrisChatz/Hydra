@@ -9,7 +9,6 @@ import java.net.UnknownHostException;
 
 public class Worker extends Thread {
 
-	Worker(){
 
 	public static void main(String[] args) {
 		
