@@ -16,5 +16,11 @@ public class ApplicationController {
 	//initialize class attributes	
 	}
 	
-
+	public void Rearrange()
+	{
+		//rearrange the data from dropped workers.
+	}
+	
+	
+	
 }
