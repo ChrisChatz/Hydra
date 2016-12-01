@@ -7,6 +7,8 @@ import java.net.UnknownHostException;
 
 public class Worker extends Thread {
 	
+	HashMap<String, Request> = reqtoserve ;
+	
 	Worker(){
 		
 	}
@@ -32,5 +34,9 @@ public class Worker extends Thread {
 		new Worker().start();
 
 	}
+	
+	
+	
+	
 
 }
