@@ -13,7 +13,7 @@ public class NetworkController {
 	HashMap<String, SocketListener> slmap;
 	String role;
 	ApplicationController apiC;
-	
+
 	public NetworkController(int port , String role){
 		this.role = role;
 		startServerSocketListener(port);
