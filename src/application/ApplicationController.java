@@ -10,8 +10,8 @@ public class ApplicationController {
 	
 	HashMap<String,String> requestworker ;
 	HashMap<String,String> requestclient ;
+	HashMap<String,String> workerhaspath;
 	//create hashtables to contain the worker name (or connection) and the received request from the client
-	
 	
 	//initialize class
 	public ApplicationController()
@@ -32,9 +32,21 @@ public class ApplicationController {
 			requestworker.put(message, conid);
 		}
 	
-	
 	}
 	
+	
+	public HashMap<String, String> getRequestworker() {
+		return requestworker;
+	}
+
+	public HashMap<String, String> getRequestclient() {
+		return requestclient;
+	}
+
+	public HashMap<String, String> getWorkerhaspath() {
+		return workerhaspath;
+	}
+
 	public void Rearrange()
 	{
 		//rearrange the data from dropped workers.
@@ -43,5 +55,6 @@ public class ApplicationController {
 	public static void main(String[] args){
 		ApplicationController handler= new ApplicationController();
 	}
+
 }
 

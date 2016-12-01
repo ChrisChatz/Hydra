@@ -32,7 +32,7 @@ public class NetworkController {
 	}
 
 	public void addSocket(Socket s){
-		String key = s.getRemoteSocketAddress().toString()+ s.getPort();
+		String key = s.getRemoteSocketAddress().toString();
 		socketmap.put(key, s);
 		SocketListener sl = new SocketListener(s, this);
 		slmap.put(key,sl); 
@@ -42,21 +42,32 @@ public class NetworkController {
 	public void getMessageFromSL(String message, String slkey){
 		apiC.callApp(slkey, message, this.role); // creates the hashmaps of clients and workers
 	}
-	
-	public void sendRequest(Request req, String key){ //  
-		try{
-			String request = req.toString();
-			Socket socket = socketmap.get(key);
+
+
+	public void sendResponse(String connection_id ,String message)
+	{
+		try
+		{
+			String temp;
+			if (this.role.equals("client")){
+				temp = apiC.getRequestclient().get(message);
+			}else
+			{
+				temp = apiC.getRequestworker().get(message);
+			}
+			Socket socket = socketmap.get(temp);		
 			DataOutputStream d = new DataOutputStream(socket.getOutputStream());
-			d.writeInt(request.getBytes().length);
-			d.write(request.getBytes());
+			d.writeInt(message.getBytes().length);
+			d.write(message.getBytes());
 			d.flush();
 		}
-		catch(IOException e){
+		catch(IOException e)
+		{
 			e.printStackTrace();
 		}
+		
 	}
-
+	
 	public static void main(String[] args){
 		NetworkController clientnc = new NetworkController(4321,"client");
 		NetworkController workernc = new NetworkController(4321,"worker");
