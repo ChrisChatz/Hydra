@@ -34,14 +34,16 @@ public class Worker extends Thread {
 			
 			DataInputStream din = new DataInputStream(serviceSocket.getInputStream()); // Input Stream
 			String inputstring = inputStreamToString(din);
+			//inputstring to Request instance
 			
 			// Creates the answer and send its back
-			String answer = provideAnswer(inputstring);	
+			String answer = provideAnswer(inputstring);
 			
-			DataOutputStream dout=new DataOutputStream(serviceSocket.getOutputStream()); // Output Stream
-			dout.writeInt(answer.getBytes().length);
-			dout.write(answer.getBytes());
-			dout.flush();	
+			//Request: we should do req.setAnswer
+			//DataOutputStream dout=new DataOutputStream(serviceSocket.getOutputStream()); // Output Stream
+			//dout.writeInt(answer.getBytes().length);
+			//dout.write(answer.getBytes());
+			//dout.flush();	
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

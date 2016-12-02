@@ -13,12 +13,14 @@ public class NetworkController {
 	HashMap<String, SocketListener> slmap;
 	String role;
 	ApplicationController apiC;
+	
 
 	public NetworkController(int port , String role){
 		this.role = role;
 		startServerSocketListener(port);
 		socketmap= new HashMap<String, Socket>();
 		slmap = new HashMap<String, SocketListener>();
+		
 	}
 
 	public void startServerSocketListener(int port){
@@ -40,25 +42,21 @@ public class NetworkController {
 	}
 	
 	public void getMessageFromSL(String message, String slkey){
-		apiC.callApp(slkey, message, this.role); // creates the hashmaps of clients and workers
+ 		apiC.callApp(slkey, message, this.role); // creates the hashmaps of clients and workers
+		//System.out.println(message+" "+slkey+" "+" i got this far?");
 	}
 
 
-	public void sendResponse(String connection_id ,String message)
+
+	public void sendRequest(Request req,String connId)
 	{
 		try
 		{
-			String temp;
-			if (this.role.equals("client")){
-				temp = apiC.getRequestworker().get(message);//get the hashmap of workers to open connection with a worker
-			}else
-			{
-				temp = apiC.getRequestclient().get(message);//get the hashmap of clients to open connection with a client
-			}
-			Socket socket = socketmap.get(temp);		
+			String m=req.toString();
+			Socket socket = socketmap.get(connId);		
 			DataOutputStream d = new DataOutputStream(socket.getOutputStream());
-			d.writeInt(message.getBytes().length);
-			d.write(message.getBytes());
+			d.writeInt(m.getBytes().length); 
+			d.write(m.getBytes());
 			d.flush();
 		}
 		catch(IOException e)
@@ -68,9 +66,5 @@ public class NetworkController {
 		
 	}
 	
-	public static void main(String[] args){
-		NetworkController clientnc = new NetworkController(4321,"client");
-		NetworkController workernc = new NetworkController(4321,"worker");
-
-	}
+	
 }

@@ -1,16 +1,19 @@
 package application;
 
-//import tools.Request;
-import java.net.Socket;
 import java.util.HashMap;
 
 import network.NetworkController;
+import tools.Request;
 
 public class ApplicationController {
 	
 	HashMap<String,String> requestworker ;
 	HashMap<String,String> requestclient ;
 	HashMap<String,String> workerhaspath;
+	private int counter=1;
+	NetworkController workerNc;
+	NetworkController clientNc;
+	
 	//create hashtables to contain the worker name (or connection) and the received request from the client
 	
 	//initialize class
@@ -18,20 +21,45 @@ public class ApplicationController {
 	{
 		requestworker = new HashMap<String,String>();
 		requestclient = new HashMap<String,String>();
+		NetworkController workerNc=new NetworkController(4321,"client");
+		NetworkController clientNc=new NetworkController(4321,"worker");
 	//initialize class attributes	
 	}
 	
-	public void callApp(String conid,String message, String role)
+	public void callApp(String conid,String message, String role)//add to hashmaps
 	{
+		
 		if (role.equals("client"))
 		{
-			requestclient.put(message, conid);
+			requestclient.put(conid,message);
+			Request req=new Request(conid,message);
+			req.setWorker_id(workerWho(req,counter));//set worker id
+			counter=counter+1;
+			workerNc.sendRequest(req,req.getWorker_id());
 		}
 		else if (role.equals("worker"))
 		{
-			requestworker.put(message, conid);
+			Request req = new Request("","");
+			req.stringToReq(message);
+			requestworker.put(req.getWorker_id(),req.getAnswer());
+			clientNc.sendRequest(req, req.getConnection_id());
 		}
+		
 	
+	}
+	
+	public String workerWho(Request r,int i){//ApplicationController decides where to send the Clients request
+		
+		if(i%2==0)
+		{
+			
+		}
+		else
+		{
+			//alliws sto 2
+		}
+		
+		return "";
 	}
 	
 	
@@ -53,7 +81,7 @@ public class ApplicationController {
 	}
 	
 	public static void main(String[] args){
-		ApplicationController handler= new ApplicationController();
+		ApplicationController appCon= new ApplicationController();
 	}
 
 }
