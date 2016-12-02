@@ -50,10 +50,10 @@ public class NetworkController {
 		{
 			String temp;
 			if (this.role.equals("client")){
-				temp = apiC.getRequestclient().get(message);
+				temp = apiC.getRequestworker().get(message);//get the hashmap of workers to open connection with a worker
 			}else
 			{
-				temp = apiC.getRequestworker().get(message);
+				temp = apiC.getRequestclient().get(message);//get the hashmap of clients to open connection with a client
 			}
 			Socket socket = socketmap.get(temp);		
 			DataOutputStream d = new DataOutputStream(socket.getOutputStream());
