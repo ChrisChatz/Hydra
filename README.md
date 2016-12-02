@@ -1,30 +1,31 @@
 # Hydra
+Athens University of Economics and Business
+Msc in Computer Science
+Distributed Systems Fall Semester 2016-2017
 
-Distributed Systems
-
-To project diaxwrizetai sta eksis diakrita simeia
+The project can be analyzed by the following discrete points:
 1)Master
 2)Workers
-3)Clients (den mas endiaferei gia to prwto paradoteo ektos apo to na dimiourgithei ena dummy mixanima
-to opoio apla tha stelnei minimata sto master -> worker -> google api gia na parei ti diadromi pou thelei)
+3)Clients (we don't care about it in the first deliverable, except from the fact that it should run in a dummy PC, sending messages to the master)
 
 1)
-paketo network:
+network package:
 
-Server Socket listener:
+	Server Socket Listener:
+		Constructor: public ServerSocketListener(int port, NetworkController parent)
+			Has as arguments the port of the the connection and a NetworkController Object (we will 			explain later)
+			
+		Run: public void run()
+			With that method, we add every socket connection in a HashMap in the 			NetworkController Class(method addSocket())
+		
+		Open: public void open()
+			Creates a server socket
 
-Constructor:
-	Dexetai ws vasika orismata port kai ena antikeimeno tou network controller (tha eksigithei parakatw)	
-Run:
-	Apo ti stigmi pou kanei extend tin klasi thread exoume mia methodo run , stin opoia
-	dexomaste socket connection apo clients kai apothikeuoume ayti ti sundesi se mia domi tou network controller (Hash map)
-Open:
-	dimourgei to server socket
-Close :
-	kleinei to server socket
+		Close: public void close()
+			Closes the server socket
 
 		
-Point of the class : Dimiourgia mias sundesis socket anoixtis gia olous tous clients.
+		Important point : Dimiourgia mias sundesis socket anoixtis gia olous tous clients.
 		
 Socket listener:
 	
