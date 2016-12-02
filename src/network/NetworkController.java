@@ -6,13 +6,15 @@ import java.net.Socket;
 import java.util.HashMap;
 
 import tools.Request;
+import tools.StreamHandler;
 
 public class NetworkController {
 	ServerSocketListener sslistener;
 	HashMap<String, Socket> socketmap;
 	HashMap<String, SocketListener> slmap;
-	String role;
-	ApplicationController apiC;
+	private String role;
+	private ApplicationController apiC;
+	StreamHandler strHan;
 	
 
 	public NetworkController(int port , String role){
@@ -49,21 +51,11 @@ public class NetworkController {
 
 
 	public void sendRequest(Request req,String connId)
-	{
-		try
-		{
+	{		
 			String m=req.toString();
-			Socket socket = socketmap.get(connId);		
-			DataOutputStream d = new DataOutputStream(socket.getOutputStream());
-			d.writeInt(m.getBytes().length); 
-			d.write(m.getBytes());
-			d.flush();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-		
+			Socket socket = socketmap.get(connId);
+			strHan.outputStream(m, socket);
+					
 	}
 	
 	

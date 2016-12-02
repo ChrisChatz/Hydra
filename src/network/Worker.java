@@ -7,9 +7,12 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 
+import tools.StreamHandler;
+
 public class Worker extends Thread {
 	 
 	 HashMap<String, String> listofpaths ;
+	 StreamHandler strHan;
 
 	public static void main(String[] args) {
 		
@@ -33,17 +36,15 @@ public class Worker extends Thread {
 			serviceSocket = new Socket("127.0.0.1", 15432);//Request socket from Server
 			
 			DataInputStream din = new DataInputStream(serviceSocket.getInputStream()); // Input Stream
-			String inputstring = inputStreamToString(din);
+			String inputstring = strHan.inputStream(din);
 			//inputstring to Request instance
 			
 			// Creates the answer and send its back
 			String answer = provideAnswer(inputstring);
 			
 			//Request: we should do req.setAnswer
-			//DataOutputStream dout=new DataOutputStream(serviceSocket.getOutputStream()); // Output Stream
-			//dout.writeInt(answer.getBytes().length);
-			//dout.write(answer.getBytes());
-			//dout.flush();	
+			//strHan.outputStream();
+			
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
