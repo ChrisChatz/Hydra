@@ -1,64 +1,72 @@
 # Hydra
-Athens University of Economics and Business
-Msc in Computer Science
-Distributed Systems Fall Semester 2016-2017
+
+## Athens University of Economics and Business 
+## Msc in Computer Science 
+### Distributed Systems Fall Semester 2016-2017
 
 The project can be analyzed by the following discrete points:
-1)Master
-2)Workers
-3)Clients (we don't care about it in the first deliverable, except from the fact that it should run in a dummy PC, sending messages to the master)
 
-1)
-network package:
+1. Master
+2. Workers
+3. Clients (we don't care about it in the first deliverable, except from the fact that it should run in a dummy PC, sending messages to the master)
 
-	Server Socket Listener:
-		Constructor: public ServerSocketListener(int port, NetworkController parent)
-			Has as arguments the port of the the connection and a NetworkController Object (we will 			explain later)
+
+* **network package**:
+
+	* **ServerSocketListener**:
+		* Constructor: `public ServerSocketListener(int port, NetworkController parent)`
+		
+		  Has as arguments the port of the the connection and a NetworkController Object (we will explain later)
 			
-		Run: public void run()
-			With that method, we add every socket connection in a HashMap in the 			NetworkController Class(method addSocket())
+		* Run: `public void run()`
 		
-		Open: public void open()
-			Creates a server socket
+		  With that method, we add every socket connection in a HashMap in the NetworkController Class(method addSocket())
+		
+		* Open: `public void open()`
+		
+		  Creates a server socket
 
-		Close: public void close()
-			Closes the server socket
+		* Close: `public void close()`
+		
+		  Closes the server socket
 
 		
-		Important point : Dimiourgia mias sundesis socket anoixtis gia olous tous clients.
+		Important point: Creates a socket connection which is open for every client.
 		
-Socket listener:
+	* **SocketListener**:
 	
-Constructor: 
-	Dexetai ws basika orismata ena socket antikeimeno kai ena antikeimeno tou Network controller (opws kai i Server socket listener)
-	kai dimiourgei ena input Datastream
+		* Constructor: `public SocketListener(Socket socket, NetworkController parent)`
+		
+		  Has as arguments a Socket Object and a NetworkController Object (like ServerSocketListener) and creates a 				  DataInputStream with that Socket Object
 	
-Run:
-	Perimenei message apo enan client. Dimiourgei enan pinaka apo bytes me to length tou minimatos wste na to prowthisei argotera
-	se ayti tin morfi. Epeita dimiourgei ena monadiko kai meta stelnei to minima ston Network controller.
+		* Run: `public void run()`
+		
+		  Takes messages from Clients and Workers. Creates a byte array with length the length of the message and then transform 		   it in a String. And finally sends the message with a unique key to NetworkController
 
-Point of the class:
-	To noima tis sugkekrimenis klashs einai na ginontai spawn SL gia kathe connection pou erxetai.
+		Important point: We have a SocketListener for each connection that we have.
 		
-Network Controller:
+	* **Network Controller**:
 	
-	Constructor: ksekina kai trexei tin sunartisi startServerSocketListener i opoia anoigei ena Server Socket Listener
-	me to port kai me ola ta stoixeia tou antikeimenou tou Network Controller (ton anoigei kai ton ksekina)
-	Ftiaxnei 2 hashMap (dictionaries) sto socketmap krataei kanei mapping ta keys me ta sockets. Sto slmap kanei mapping
-	ena socket listener me kapoio string (?!)
+		* Constructor: `public NetworkController(int port , String role)`
+		
+		  Starts the method startServerSocketListener. Creates 2 hashMaps: 
+		  1. `HashMap<String, Socket>socketmap;` and 
+		  2.  `HashMap<String, SocketListener> slmap;`
 	
-	startServerSocketListener: eksigithike parapanw
+		* startServerSocketListener: `public void startServerSocketListener(int port)`
+		
+		  Opens a ServerSocketListener with port the port that NetworkController listens to and all the attributes of       			  NetworkController Class. And then starts it.
 	
-	addsocket: Prosthetei neo socket sto hasmap dimiourgei enan neo socket listener kai ksekinaei na ton trexei
-	telos prosthetei stin slmap ton neo socket listener.
+	 	* addsocket: `public void addSocket(Socket s)`
+	       
+	          Add a new socket in `socketmap`. Creates a new SocketListener and starts it. Finally,  add the new SocketListener in                     `slmap`.
 	
-	getMessageFromSL: pernei to req to metatrepei se string kai to ektypwnei.
+		* getMessageFromSL: `public void getMessageFromSL(String message, String slkey)`
+		
+		  Takes the message from the SocketListener and its key and send it to the ApplicationController. 
 	
-	sendRequest: pernei to minima vriskei to socket pou tha to steilei , anoigei stream kai ksekinaei na to stelnei.
+		* sendRequest: `public void sendRequest(Request req,String connId)`
+		
+		  Takes a Request and send it to the appropriate Client or Worker.
 	
-	main : dimiourgei enan neo Network controller se mia orismeni thyra pou exoume prokathorisei
-	
-Point of the Class: H dimiourgia enos antikeimenou pou arxika tha krataei se domes hashmap ta keys kai ta sockets . Opws
-episis kai ta listeners pou einai upeuthina gia kathe connection. Entelei dimiourgei stream kai stelnei to request (apo opoion
-kai na proerxetai) se paralipti ston opoio tha orisoume emeis. Me liga logia kanei tin antistixi douleia enos dromologiti
-me ta arp tables tou.
+	    Important point: NetworkController is responsible for every socket connection and for sending Requests in Clients and    		    Workers.
