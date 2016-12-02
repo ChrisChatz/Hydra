@@ -50,8 +50,8 @@ The project can be analyzed by the following discrete points:
 		* Constructor: `public NetworkController(int port , String role)`
 		
 		  Starts the method startServerSocketListener. Creates 2 hashMaps: 
-		  1. `HashMap<String, Socket>socketmap;` and 
-		  2.  `HashMap<String, SocketListener> slmap;`
+		  1. `HashMap<String, Socket>socketmap` and 
+		  2.  `HashMap<String, SocketListener> slmap`
 	
 		* startServerSocketListener: `public void startServerSocketListener(int port)`
 		
@@ -70,3 +70,22 @@ The project can be analyzed by the following discrete points:
 		  Takes a Request and send it to the appropriate Client or Worker.
 	
 	    Important point: NetworkController is responsible for every socket connection and for sending Requests in Clients and    		    Workers.
+	    
+* **application package**:
+
+	* **ApplicationController**:
+	
+		* Constructor: `public ApplicationController()`
+		
+		  Creates 2 new NetworkController instances, one for clients and one for workers.
+		  Creates, also, 2 hashMaps: 
+		  1. `HashMap<String,String> requestworker` and 
+		  2. `HashMap<String,String> requestclient`
+		  
+		* callApp: `public void callApp(String conid,String message, String role)`
+		  
+		  With this method we can separate Clients from Workers with the attribute `role`. If we have a client, we create a new 		  Request and sends it to a worker to serve it. Else, we get the answer from the worker and send it back to the client 			  that creates it.
+		 
+		* workerWho: `public String workerWho(Request r,int i)`
+
+		  This method returns a key of a worker that can serve the Request. It has not yet been implemented.
