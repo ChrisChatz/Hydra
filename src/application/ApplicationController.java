@@ -56,7 +56,7 @@ public class ApplicationController {
 		}
 		else
 		{
-			//alliws sto 2
+			
 		}
 		
 		return "";

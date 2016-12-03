@@ -45,7 +45,7 @@ public class NetworkController {
 	
 	public void getMessageFromSL(String message, String slkey){
  		apiC.callApp(slkey, message, this.role); // creates the hashmaps of clients and workers
-		//System.out.println(message+" "+slkey+" "+" i got this far?");
+		
 	}
 
 
