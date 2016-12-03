@@ -89,3 +89,27 @@ The project can be analyzed by the following discrete points:
 		* workerWho: `public String workerWho(Request r,int i)`
 
 		  This method returns a key of a worker that can serve the Request. It has not yet been implemented.
+
+* **tools package**:
+
+	* **Request**:
+	
+		* Constructor: `public Request(String slkey,String message)`
+		
+		  Creates a Request instance with `connection_id` and `question_loc`
+		  
+		* toString: `public String toString()`
+		
+		  This method hasn't yet been implemented.
+		  
+		* stringToReq: `public Request stringToReq(String m)`
+		
+		  This method is actually the reverse procedure of `toString`. It has not yet been implemented.
+	
+	* **StreamHandler**:
+	
+	 	* outputStream: `public void outputStream(String s, Socket i)`
+		
+		  Sends a String to a specific Socket.
+		  
+		* inputStream: `public String inputStream(DataInputStream din)`
