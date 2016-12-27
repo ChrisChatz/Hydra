@@ -21,7 +21,7 @@ public class ApplicationController {
 	{
 		requestworker = new HashMap<String,String>();
 		requestclient = new HashMap<String,String>();
-		NetworkController workerNc=new NetworkController(4321,"worker");
+		NetworkController workerNc=new NetworkController(1888,"worker");
 		NetworkController clientNc=new NetworkController(4321,"client");
 	//initialize class attributes	
 	}
