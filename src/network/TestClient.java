@@ -7,10 +7,10 @@ import java.net.UnknownHostException;
 import tools.StreamHandler;
 
 public class TestClient extends Thread {
-	StreamHandler strHan;
 	TestClient(){
-		
 	}
+	StreamHandler strHan = new StreamHandler();
+	
 	public void run(){
 		Socket requestSocket = null;
 	
