@@ -44,22 +44,23 @@ public class ApplicationController {
 			requestworker.put(req.getWorker_id(),req.getAnswer());
 			clientNc.sendRequest(req, req.getConnection_id());
 		}
-		
 	
 	}
 	
 	public String workerWho(Request r,int i){//ApplicationController decides where to send the Clients request
-		
+		String answer; // that's the name of the worker responsible
 		if(i%2==0)
 		{
-			
+			workerhaspath.put("0",r.getQuestionloc());// we have to add the put the name of the worker as key and the path
+			answer = "0";
 		}
 		else
 		{
-			
+			workerhaspath.put("1",r.getQuestionloc());// we have to add the put the name of the worker as key and the path
+			answer = "1";
 		}
 		
-		return "";
+		return answer;
 	}
 	
 	

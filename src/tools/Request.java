@@ -45,7 +45,10 @@ public class Request {
 		Request x =  new Request("","");
 		return x;
 	}
-	
+	public String getQuestionloc()
+	{
+		return this.question_loc;
+	}
 	
 }
 
