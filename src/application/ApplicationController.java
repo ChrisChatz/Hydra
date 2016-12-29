@@ -9,6 +9,7 @@ public class ApplicationController {
 	
 	HashMap<String,String> requestworker ;
 	HashMap<String,String> requestclient ;
+	HashMap<String,String> workertoclient;// socket of the client and the socket of the worker
 	HashMap<String,String> workerhaspath;
 	private int counter=1;
 	NetworkController workerNc;
@@ -34,14 +35,17 @@ public class ApplicationController {
 			requestclient.put(conid,message);
 			Request req=new Request(conid,message);
 			req.setWorker_id(workerWho(req,counter));//set worker id
+			workertoclient.put(req.getWorker_id(),conid);
 			counter=counter+1;
 			workerNc.sendRequest(req,req.getWorker_id());
 		}
 		else if (role.equals("worker"))
 		{
-			Request req = new Request("","");
-			req.stringToReq(message);
+			Request req = new Request("",""); // we got to find the question of the client
+			req.setAnswer(message);
+			req.setWorker_id(conid);
 			requestworker.put(req.getWorker_id(),req.getAnswer());
+			req.setConnection_id(workertoclient.get(conid));
 			clientNc.sendRequest(req, req.getConnection_id());
 		}
 	
@@ -51,6 +55,7 @@ public class ApplicationController {
 		String answer; // that's the name of the worker responsible
 		if(i%2==0)
 		{
+			
 			workerhaspath.put("0",r.getQuestionloc());// we have to add the put the name of the worker as key and the path
 			answer = "0";
 		}

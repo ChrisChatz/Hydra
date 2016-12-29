@@ -37,6 +37,7 @@ public class NetworkController {
 
 	public void addSocket(Socket s){
 		String key = s.getRemoteSocketAddress().toString();
+		System.out.println(key);
 		socketmap.put(key, s);
 		SocketListener sl = new SocketListener(s, this);
 		slmap.put(key,sl); 

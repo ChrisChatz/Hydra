@@ -41,13 +41,15 @@ public class Request {
 		return this.toString();
 	}
 	
-	public Request stringToReq(String m){
-		Request x =  new Request("","");
-		return x;
-	}
+//	public Request stringToReq(String m){
+//		pass
+//	}
 	public String getQuestionloc()
 	{
 		return this.question_loc;
+	}
+	public void setConnection_id(String connection_id) {
+		this.connection_id = connection_id;
 	}
 	
 }
