@@ -27,8 +27,7 @@ public class ServerSocketListener extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+
 		}
 	}
 	

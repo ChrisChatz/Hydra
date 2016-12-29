@@ -34,7 +34,7 @@ public class Worker extends Thread {
 	public void run(){
 		Socket serviceSocket = null;
 		try {
-			serviceSocket = new Socket("127.0.0.1", 15432);//Request socket from Server
+			serviceSocket = new Socket("127.0.0.1", 1888);//Request socket from Server
 			
 			DataInputStream din = new DataInputStream(serviceSocket.getInputStream()); // Input Stream
 			String inputstring = strHan.inputStream(din);
