@@ -14,15 +14,13 @@ public class NetworkController {
 	HashMap<String, SocketListener> slmap;
 	private String role;
 	private ApplicationController apiC;
-	StreamHandler strHan;
 	
 
 	public NetworkController(int port , String role){
 		this.role = role;
-		startServerSocketListener(port);
-		socketmap= new HashMap<String, Socket>();
-		slmap = new HashMap<String, SocketListener>();
-		
+		this.startServerSocketListener(port);
+		this.socketmap= new HashMap<String, Socket>();
+		this.slmap = new HashMap<String, SocketListener>();
 	}
 
 	public void startServerSocketListener(int port){
@@ -42,21 +40,31 @@ public class NetworkController {
 		SocketListener sl = new SocketListener(s, this);
 		slmap.put(key,sl); 
 		sl.start();
+		apiC.AliveConnections(key, this.role);
 	}
 	
 	public void getMessageFromSL(String message, String slkey){
-		apiC.callApp(slkey, message, this.role); // creates the hashmaps of clients and workers
-		
+		apiC.callApp(slkey, message, this.role);
+	}
+	
+	public void setApplicationController(ApplicationController apiC){
+		this.apiC = apiC;
+	}
+	
+	public HashMap<String, Socket> getSocketMap(){
+		return this.socketmap;
 	}
 
-
-
-	public void sendRequest(Request req,String connId)
-	{		
+	public void sendRequest(Request req,String connId){
+		try{
 			String m=req.toString();
 			Socket socket = socketmap.get(connId);
-			strHan.outputStream(m, socket);
-					
+			StreamHandler.outputStream(m, socket);
+		}catch(Exception e){
+			System.out.println("Connection lost with: " + connId);
+			this.socketmap.remove(connId);
+			this.slmap.remove(connId);
+		}
 	}
 	
 	

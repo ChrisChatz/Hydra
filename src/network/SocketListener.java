@@ -23,8 +23,7 @@ public class SocketListener  extends Thread{
 		
 	}
 
-	public void run()
-	{
+	public void run(){
 		while(true){
 			try{
 				//Takes message from Clients and Workers
