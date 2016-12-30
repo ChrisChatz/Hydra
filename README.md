@@ -113,3 +113,6 @@ The project can be analyzed by the following discrete points:
 		  Sends a String to a specific Socket.
 		  
 		* inputStream: `public String inputStream(DataInputStream din)`
+
+JSON library https://mvnrepository.com/artifact/com.google.code.gson/gson/2.3.1
+download gson jar from maven and place it in the Hydra dir. Then go to JRE System Library->Build Path->Configure Build Path-> Add external jars and add the jar file.
