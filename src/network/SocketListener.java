@@ -30,7 +30,6 @@ public class SocketListener  extends Thread{
 				//Takes message from Clients and Workers
 				String message;
 				int length= input.readInt();
-			//System.out.println(length);
 				if(length>0){
 					byte[] b=new byte[length];
 					input.readFully(b);

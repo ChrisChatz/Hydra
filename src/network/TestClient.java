@@ -16,7 +16,9 @@ public class TestClient extends Thread {
 	
 			try {
 				requestSocket = new Socket("127.0.0.1", 4321);
-				String message=new String("Pallini,Pikermi");
+				String message=new String("DWSE PASA RE KARAGIOZH");
+				strHan.outputStream(message, requestSocket);
+				Thread.sleep(2000);
 				strHan.outputStream(message, requestSocket);
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
@@ -25,6 +27,10 @@ public class TestClient extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}//Request socket from Server
+ catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 	}
 	public static void main(String[] args) {

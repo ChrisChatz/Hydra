@@ -1,5 +1,7 @@
 package tools;
 
+import com.google.gson.*;
+
 public class Request {
 
 	private String connection_id;
@@ -37,8 +39,11 @@ public class Request {
 	}
 	
 	public String toString(){
-		//to be done with json 
-		return this.toString();
+		return new Gson().toJson(this);
+	}
+	
+	public static Request fromString(String str){
+		return new Gson().fromJson(str, Request.class);
 	}
 	
 //	public Request stringToReq(String m){
