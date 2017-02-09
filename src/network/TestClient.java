@@ -16,7 +16,7 @@ public class TestClient extends Thread {
 	
 			try {
 				requestSocket = new Socket("127.0.0.1", 4321);
-				String message=new String("DWSE PASA RE KARAGIOZH");
+				String message=new String("This is a test!!!!!!<--->");
 				strHan.outputStream(message, requestSocket);
 				Thread.sleep(2000);
 				strHan.outputStream(message, requestSocket);

@@ -4,6 +4,15 @@
 ## Msc in Computer Science 
 ### Distributed Systems Fall Semester 2016-2017
 
+<b>To do list:</b>
+*Fix get google path.
+*Store the paths to disk (using a certain policy).
+*Handle the fall and the insertions of workers.
+*Fix the workers.
+*Create the client mode with android interface.
+*Check in several VMs' if the workers communicate with each other.
+
+
 The project can be analyzed by the following discrete points:
 
 1. Master
