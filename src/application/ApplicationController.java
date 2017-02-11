@@ -52,7 +52,7 @@ public class ApplicationController {
 	
 	public void sendRequestToWorker(Request re){
 		String slkey = this.wrp.whoWillServeQuestion(re.getQuestionloc());
-		workerNc.getMessageFromSL(re.toString(), slkey);
+		workerNc.sendRequest(re, slkey);
 	}
 	
 	public static void main(String[] args){

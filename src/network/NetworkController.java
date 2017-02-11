@@ -66,6 +66,5 @@ public class NetworkController {
 			this.slmap.remove(connId);
 		}
 	}
-	
-	
+
 }
