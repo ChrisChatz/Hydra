@@ -29,7 +29,6 @@ public class AppWorker extends Thread{
 					byte[] b=new byte[length];
 					input.readFully(b);
 					message= new String(b,"UTF-8");
-					System.out.println(message);
 					this.sendMessage(handleMessage(message));
 				}
 			}catch(IOException e){e.printStackTrace();break;}
@@ -38,7 +37,6 @@ public class AppWorker extends Thread{
 	
 	public static String handleMessage(String message) throws IOException{
 		Request re = Request.fromString(message);
-		System.out.println("first stop");
 		String answer = GetGooglePath.getlink(re.getQuestionloc());
 		re.setAnswer(answer);
 		return re.toString();
