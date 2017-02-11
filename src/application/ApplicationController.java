@@ -29,7 +29,7 @@ public class ApplicationController {
 	public void AliveConnections(String conid,String role)
 	{
 		if (role.equals("worker")){
-			System.out.println("Its alive its alive! "+ conid);
+			System.out.println("This worker is up and running "+ conid);
 			WorkerRep w = new WorkerRep(conid,true,new ArrayList<String>());
 			wrp.collection.add(w);
 		}
