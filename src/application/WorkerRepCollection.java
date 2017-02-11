@@ -26,6 +26,7 @@ public class WorkerRepCollection {
 	
 	public String whoWillServeQuestion(String question){
 		String previousServer = this.whoServedQuestion(question);
+		//kapoy edw prepei na mpei enas elegxos an o worker poy exei apantisei (h oxi tin erwtisi) einai zwntanos
 		if(previousServer!=null){
 			System.out.println("request will be handled by : "+previousServer); 
 			return previousServer;

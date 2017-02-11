@@ -36,9 +36,10 @@ public class AppWorker extends Thread{
 		}
 	}
 	
-	public static String handleMessage(String message){
+	public static String handleMessage(String message) throws IOException{
 		Request re = Request.fromString(message);
-		re.setAnswer("::TESTING::");
+		String answer = GetGooglePath.getlink(re.getQuestionloc());
+		re.setAnswer(answer);
 		return re.toString();
 	}
 	

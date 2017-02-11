@@ -27,15 +27,12 @@ public class GetGooglePath {
 	    return content.toString();
 	  }
 
-	public static String getlink(String start,String finish) throws IOException
+	public static String getlink(String question) throws IOException
 	{
+		String start = question.split(",")[0];
+		String finish = question.split(",")[1];
 		String output  = getUrlContents("https://maps.googleapis.com/maps/api/directions/json?sensor=false&origin=%22+"+start+"+%22&destination=%22+"+finish);
 		return output;
 	}
 	
-	public static void main (String[] args) throws IOException
-	{
-		String answer = GetGooglePath.getlink("pikermi", "palini");
-		System.out.println(answer);
-	}
 }

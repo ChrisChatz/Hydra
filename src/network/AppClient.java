@@ -45,7 +45,7 @@ public class AppClient extends Thread{
 		try {
 			for(int i=0;i<5;i++){
 				Thread.sleep(1000);
-				apc.sendMessage("::TESTING::");
+				apc.sendMessage("Palini,Pikermi");
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
