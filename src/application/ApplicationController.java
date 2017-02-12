@@ -52,6 +52,7 @@ public class ApplicationController {
 	
 	public void sendRequestToWorker(Request re){
 		String slkey = this.wrp.whoWillServeQuestion(re.getQuestionloc());
+		re.setWorker_id(slkey);
 		workerNc.sendRequest(re, slkey);
 	}
 	

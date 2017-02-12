@@ -3,13 +3,16 @@ package network;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+
+import application.WorkerRep;
 import tools.*;
 
 public class AppWorker extends Thread{
 	
 	private Socket socket;
 	private DataInputStream input;
-	
+	public 	ArrayList<String> ServedQuestions;
 	public AppWorker(String host, int port){
 		try{
 			this.socket = new Socket(host, port);
@@ -38,7 +41,7 @@ public class AppWorker extends Thread{
 	public static String handleMessage(String message) throws IOException{
 		Request re = Request.fromString(message);
 		String answer = GetGooglePath.getlink(re.getQuestionloc());
-		re.setAnswer(answer);
+		re.setAnswer(answer);		
 		return re.toString();
 	}
 	
