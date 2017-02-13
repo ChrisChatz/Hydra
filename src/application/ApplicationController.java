@@ -60,6 +60,7 @@ public class ApplicationController {
 	public void sendRequestToWorker(Request re){
 		String slkey = this.wrp.whoWillServeQuestion(re.getQuestionloc());
 		re.setWorker_id(slkey);
+		System.out.println(slkey);
 		workerNc.sendRequest(re, slkey);
 	}
 	

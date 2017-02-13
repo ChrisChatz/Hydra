@@ -17,7 +17,7 @@ public class AppWorker extends Thread{
 	
 	private Socket socket;
 	private DataInputStream input;
-	public static	HashMap<String,String> AnsweredQuestions;
+	public HashMap<String,String> AnsweredQuestions;
 	public AppWorker(String host, int port){
 		try{
 			this.socket = new Socket(host, port);
@@ -49,81 +49,105 @@ public class AppWorker extends Thread{
 			}catch(IOException e){e.printStackTrace();break;}
 		}
 	}
-	public static String handleMessage(String message) throws IOException{
+	public String handleMessage(String message) throws IOException{
 		Request re = Request.fromString(message);
-		if (AnsweredQuestions.containsKey(re.getQuestionloc()))
+		String decision = decide(re);
+		if (decision.equals("google"))
 		{
-			if (AnsweredQuestions.size()<20){
-				return AnsweredQuestions.get(re.getQuestionloc());
-			}
-			else{
-				writetodisk(re.getQuestionloc(), AnsweredQuestions.get(re.getQuestionloc()));
-				re.setAnswer(AnsweredQuestions.get(re.getQuestionloc()));
-				return re.toString();
-			}
+			String answer = GetGooglePath.getlink(re.getQuestionloc());
+			re.setAnswer(answer);
+			AnsweredQuestions.put(re.getQuestionloc(),re.getAnswer());
+			return re.toString();
+		}
+		else if(decision.equals("HDD"))
+		{
+		    BufferedReader br = new BufferedReader(new FileReader("./"+re.getQuestionloc()));
+			    try {
+			        StringBuilder sb = new StringBuilder();
+			        String line = br.readLine();
+			        while (line != null) {
+			            sb.append(line);
+			            sb.append("\n");
+			            line = br.readLine();
+			        }
+					br.close();
+			        re.setAnswer(sb.toString());
+			    }catch(Exception e)
+			    {
+			    	System.out.println("file not found");
+			    }		
+				
+			return re.toString();
+		}
+		else if (decision.equals("Bounded")) //hashmap option
+		{
+			String value = AnsweredQuestions.get(new Random().nextInt(AnsweredQuestions.size()));
+			String answer= AnsweredQuestions.get(value);
+			AnsweredQuestions.remove(value);
+			try{
+		    	File file =new File("./"+value);
+		    	if(!file.exists()){
+		    	   file.createNewFile();
+		    	}
+		    	FileWriter fw = new FileWriter(file,true);
+		    	BufferedWriter bw = new BufferedWriter(fw);
+		    	bw.write(answer);
+		    	bw.close();
+		      }catch(IOException ioe){
+		         System.out.println("Exception occurred:");
+		    	 ioe.printStackTrace();
+		       }
+			re.setAnswer(GetGooglePath.getlink(re.getQuestionloc()));
+			AnsweredQuestions.put(re.getQuestionloc(),re.getAnswer());
+			
+			return re.toString();
+
 		}
 		else
 		{
-			System.out.println("mpike");
-			String response = retrievefromdisk(re.getQuestionloc());
-			if (response.equals("!FOUND"))
+			re.setAnswer(AnsweredQuestions.get(re.getQuestionloc()));
+			return re.toString();
+		}
+		
+	}
+	
+	public String decide(Request re)
+	{
+		if (AnsweredQuestions.size()<20 && AnsweredQuestions.containsKey(re.getQuestionloc()))
+		{
+			return "Unbounded";
+		}
+		else if (AnsweredQuestions.size()==20 && !AnsweredQuestions.containsKey(re.getQuestionloc()))
+		{
+			return "Bounded";
+		}
+		else
+		{
+			if (checkdisk(re.getQuestionloc()))
 			{
-				String answer = GetGooglePath.getlink(re.getQuestionloc());
-				re.setAnswer(answer);
-				AnsweredQuestions.put(re.getQuestionloc(),re.getAnswer());
-				return re.toString();
+				return "HDD";
 			}
 			else
 			{
-				re.setAnswer(response);
-				return re.toString();
+				return "google";
 			}
 		}
-	}
-	public static void writetodisk(String question,String response) throws IOException
-	{
-		String value;
-		String answer;
-		value = AnsweredQuestions.get(new Random().nextInt(AnsweredQuestions.size()));
-		answer= AnsweredQuestions.get(value);
-		AnsweredQuestions.remove(value);
-		try{
-	    	File file =new File("./"+value);
-	    	if(!file.exists()){
-	    	   file.createNewFile();
-	    	}
-	    	FileWriter fw = new FileWriter(file,true);
-	    	BufferedWriter bw = new BufferedWriter(fw);
-	    	bw.write(answer);
-	    	bw.close();
-	      }catch(IOException ioe){
-	         System.out.println("Exception occurred:");
-	    	 ioe.printStackTrace();
-	       }
-		AnsweredQuestions.put(question, response);
+		
 	}
 	
-	public static String retrievefromdisk(String value) throws IOException
+	public boolean checkdisk(String questionloc)
 	{
-		String answer = "";
-	    BufferedReader br = new BufferedReader(new FileReader(value));
-	    try {
-	        StringBuilder sb = new StringBuilder();
-	        String line = br.readLine();
-	        while (line != null) {
-	            sb.append(line);
-	            sb.append("\n");
-	            line = br.readLine();
-	        }
-			br.close();
-	        return sb.toString();
-	    }catch(Exception e)
-	    {
-	    	System.out.println("file not found");
-	    	answer = "!FOUND";
-	    }
-		return answer;
+		File f = new File("./"+questionloc);
+		if (f.exists() && !f.isDirectory())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
+	
 
 	public void sendMessage(String message){
 		StreamHandler.outputStream(message, this.socket);

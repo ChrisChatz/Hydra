@@ -43,9 +43,9 @@ public class AppClient extends Thread{
 		AppClient apc = new AppClient("127.0.0.1", 4321);
 		apc.start();
 		try {
-			for(int i=0;i<2;i++){
-				Thread.sleep(1000);
+			for(int i=0;i<4;i++){
 				apc.sendMessage("Palini,Pikermi");
+				Thread.sleep(2000);
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
