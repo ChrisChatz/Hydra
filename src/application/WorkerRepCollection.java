@@ -19,6 +19,20 @@ public class WorkerRepCollection {
 		}
 		return null;
 	}
+	public WorkerRep getworkerrep (String conid)
+	{
+		WorkerRep w = null;
+		for(WorkerRep rep:collection)
+			{
+				if (rep.getConnId().equals(conid))
+				{
+					w = rep;
+				}
+			}
+		return w;
+	}
+	
+	
 	
 	public WorkerRep pickRandomWorkerRep(){
 		return collection.get(new Random().nextInt(collection.size()));

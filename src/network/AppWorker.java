@@ -26,14 +26,20 @@ public class AppWorker extends Thread{
 		while(true){
 			try{
 				//Takes message from Clients and Workers
-				String message;
-				int length= input.readInt();
-				if(length>0){
-					byte[] b=new byte[length];
-					input.readFully(b);
-					message= new String(b,"UTF-8");
-					this.sendMessage(handleMessage(message));
+				int counter = 0;
+				while (counter<2)
+				{
+					String message;
+					int length= input.readInt();
+					if(length>0){
+						byte[] b=new byte[length];
+						input.readFully(b);
+						message= new String(b,"UTF-8");
+						this.sendMessage(handleMessage(message));
+						}
+				counter++;
 				}
+				this.sendMessage("FALL");
 			}catch(IOException e){e.printStackTrace();break;}
 		}
 	}
@@ -41,7 +47,7 @@ public class AppWorker extends Thread{
 	public static String handleMessage(String message) throws IOException{
 		Request re = Request.fromString(message);
 		String answer = GetGooglePath.getlink(re.getQuestionloc());
-		re.setAnswer(answer);		
+		re.setAnswer(answer);
 		return re.toString();
 	}
 	
@@ -53,5 +59,4 @@ public class AppWorker extends Thread{
 		AppWorker apc = new AppWorker("127.0.0.1", 1888);
 		apc.start();
 	}
-	
 }

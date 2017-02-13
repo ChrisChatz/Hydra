@@ -43,10 +43,17 @@ public class ApplicationController {
 			this.sendRequestToWorker(re);
 		}
 		if(role.equals("worker")){
-			System.out.println("Received new message from worker: " + conid);
-			Request re = Request.fromString(message);
-			System.out.println(re.getConnection_id());
-			this.clientNc.sendRequest(re, re.getConnection_id());
+			if (message.equals("FALL")){
+				System.out.println("mpike edw");
+				gracefullfall(conid);
+				System.out.println("succesfully fallen!");
+			}else
+			{
+				System.out.println("Received new message from worker: " + conid);
+				Request re = Request.fromString(message);
+				System.out.println(re.getConnection_id());
+				this.clientNc.sendRequest(re, re.getConnection_id());
+			}
 		}
 	}
 	
@@ -54,6 +61,17 @@ public class ApplicationController {
 		String slkey = this.wrp.whoWillServeQuestion(re.getQuestionloc());
 		re.setWorker_id(slkey);
 		workerNc.sendRequest(re, slkey);
+	}
+	
+	public void gracefullfall(String conid)
+	{
+		WorkerRep fallen = wrp.getworkerrep(conid);
+		wrp.collection.remove(fallen);
+		for (String x:(fallen.getQuestions_served()))
+		{
+			Request q = new Request(conid,x);
+			sendRequestToWorker(q);
+		}
 	}
 	
 	public static void main(String[] args){
