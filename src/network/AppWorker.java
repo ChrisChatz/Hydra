@@ -58,7 +58,8 @@ public class AppWorker extends Thread{
 			}
 			else{
 				writetodisk(re.getQuestionloc(), AnsweredQuestions.get(re.getQuestionloc()));
-				return AnsweredQuestions.get(re.getQuestionloc());
+				re.setAnswer(AnsweredQuestions.get(re.getQuestionloc()));
+				return re.toString();
 			}
 		}
 		else
