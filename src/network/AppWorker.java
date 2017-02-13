@@ -33,8 +33,8 @@ public class AppWorker extends Thread{
 			try{
 				//Takes message from Clients and Workers
 				int counter = 0;
-				while (counter<2)
-				{
+				//while (counter<2)
+				//{
 					String message;
 					int length= input.readInt();
 					if(length>0){
@@ -43,9 +43,9 @@ public class AppWorker extends Thread{
 						message= new String(b,"UTF-8");
 						this.sendMessage(handleMessage(message));
 					}
-				counter++;
-				}
-				this.sendMessage("FALL");
+	//			counter++;
+				//}
+	//			this.sendMessage("FALL");
 			}catch(IOException e){e.printStackTrace();break;}
 		}
 	}
@@ -63,8 +63,9 @@ public class AppWorker extends Thread{
 		}
 		else
 		{
+			System.out.println("mpike");
 			String response = retrievefromdisk(re.getQuestionloc());
-			if (response.equals("NOT FOUND"))
+			if (response.equals("!FOUND"))
 			{
 				String answer = GetGooglePath.getlink(re.getQuestionloc());
 				re.setAnswer(answer);
@@ -115,9 +116,10 @@ public class AppWorker extends Thread{
 	        }
 			br.close();
 	        return sb.toString();
-	    }catch(IOException ioe)
+	    }catch(Exception e)
 	    {
-	    	answer = "NOT FOUND";
+	    	System.out.println("file not found");
+	    	answer = "!FOUND";
 	    }
 		return answer;
 	}
