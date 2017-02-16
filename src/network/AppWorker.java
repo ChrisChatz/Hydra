@@ -8,7 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import tools.*;
@@ -81,8 +83,10 @@ public class AppWorker extends Thread{
 		}
 		else if (decision.equals("Bounded")) //hashmap option
 		{
-			String value = AnsweredQuestions.get(new Random().nextInt(AnsweredQuestions.size()));
-			String answer= AnsweredQuestions.get(value);
+			Random       random    = new Random();
+			List<String> keys      = new ArrayList<String>(AnsweredQuestions.keySet());
+			String       value = keys.get( random.nextInt(keys.size()) );
+			String answer = AnsweredQuestions.get(value);
 			AnsweredQuestions.remove(value);
 			try{
 		    	File file =new File("./"+value);
@@ -113,11 +117,12 @@ public class AppWorker extends Thread{
 	
 	public String decide(Request re)
 	{
-		if (AnsweredQuestions.size()<20 && AnsweredQuestions.containsKey(re.getQuestionloc()))
+		int bounder = 2;
+		if (AnsweredQuestions.size()<bounder && AnsweredQuestions.containsKey(re.getQuestionloc()))
 		{
 			return "Unbounded";
 		}
-		else if (AnsweredQuestions.size()==20 && !AnsweredQuestions.containsKey(re.getQuestionloc()))
+		else if (AnsweredQuestions.size()==bounder && !AnsweredQuestions.containsKey(re.getQuestionloc()))
 		{
 			return "Bounded";
 		}
@@ -154,7 +159,7 @@ public class AppWorker extends Thread{
 	}
 	
 	public static void main(String args[]){
-		AppWorker apc = new AppWorker("127.0.0.1", 1888);
+		AppWorker apc = new AppWorker("10.25.177.209", 1888);
 		apc.start();
 	}
 }

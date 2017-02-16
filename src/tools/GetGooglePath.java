@@ -30,7 +30,7 @@ public class GetGooglePath {
 	{
 		String start = question.split(",")[0];
 		String finish = question.split(",")[1];
-		String output  = getUrlContents("https://maps.googleapis.com/maps/api/directions/json?sensor=false&origin=%22+"+start+"+%22&destination=%22+"+finish);
+		String output  = getUrlContents("https://maps.googleapis.com/maps/api/directions/json?sensor=false&origin=+"+start+"&destination=+"+finish);
 		return output;
 	}
 	

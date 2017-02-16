@@ -44,7 +44,7 @@ public class AppClient extends Thread{
 		apc.start();
 		try {
 			for(int i=0;i<4;i++){
-				apc.sendMessage("Palini,Pikermi");
+				apc.sendMessage("eksarxeia,kalamata");
 				Thread.sleep(2000);
 			}
 		} catch (InterruptedException e) {
