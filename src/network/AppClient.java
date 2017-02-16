@@ -43,7 +43,10 @@ public class AppClient extends Thread{
 		AppClient apc = new AppClient("127.0.0.1", 4321);
 		apc.start();
 		try {
-			for(int i=0;i<4;i++){
+			for(int i=0;i<1;i++){
+				apc.sendMessage("eksarxeia,kalamata");
+				apc.sendMessage("London,Paris");
+				apc.sendMessage("Perama,paloukia");
 				apc.sendMessage("eksarxeia,kalamata");
 				Thread.sleep(2000);
 			}

@@ -118,11 +118,11 @@ public class AppWorker extends Thread{
 	public String decide(Request re)
 	{
 		int bounder = 2;
-		if (AnsweredQuestions.size()<bounder && AnsweredQuestions.containsKey(re.getQuestionloc()))
+		if (AnsweredQuestions.containsKey(re.getQuestionloc()))
 		{
 			return "Unbounded";
 		}
-		else if (AnsweredQuestions.size()==bounder && !AnsweredQuestions.containsKey(re.getQuestionloc()))
+		else if(AnsweredQuestions.size()==bounder && !AnsweredQuestions.containsKey(re.getQuestionloc()))
 		{
 			return "Bounded";
 		}
@@ -159,7 +159,7 @@ public class AppWorker extends Thread{
 	}
 	
 	public static void main(String args[]){
-		AppWorker apc = new AppWorker("10.25.177.209", 1888);
+		AppWorker apc = new AppWorker("127.0.0.1", 1888);
 		apc.start();
 	}
 }
